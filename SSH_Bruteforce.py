@@ -30,7 +30,6 @@ class BruteForce:
         return self.thread_list
 
     def bruteforce(self,numberlines,lines,q):
-        print(numberlines,lines)
         for i in range(numberlines,lines):
             line = linecache.getline(self.filename, i)
             line = line.strip()
@@ -52,7 +51,7 @@ class BruteForce:
         return len(linecache.getlines(self.filename))
 
 if __name__ == '__main__':
-    help_text = '''exmple: python3 SSH_Bruteforce.py -h 192.168.1.180 -u root -f password.txt -t 10'''
+    help_text = '''exmple: python3 SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10'''
     parser = argparse.ArgumentParser(description=help_text)
     parser.add_argument('-H', '--host',type=str, help='Hostname/IP', required=True)
     parser.add_argument('-u', '--user', type=str,help='Username', required=True)
