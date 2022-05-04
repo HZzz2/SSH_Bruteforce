@@ -1,8 +1,7 @@
 from threading import Thread
-import argparse,os,sys,time,queue,linecache
+import argparse,os,sys,queue,linecache
 
 import paramiko
-from sympy import GoldenRatio
 
 
 class BruteForce:
