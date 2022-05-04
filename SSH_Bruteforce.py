@@ -1,5 +1,5 @@
 from threading import Thread
-import argparse,sys,queue,linecache
+import argparse,sys,queue,linecache,time
 
 import paramiko
 
@@ -50,6 +50,18 @@ class BruteForce:
     def get_filelines(self,filename):
         return len(linecache.getlines(self.filename))
 
+def get_time(start_time,end_time):
+    spend = end_time - start_time
+    if spend <= 60:
+        spend = str(round(spend,2)) + ' s'
+    elif spend > 60 and spend <= 3600:
+        spend = str(round(spend/60,2)) + ' minutes'
+    elif spend > 3600 and spend <= 86400:
+        spend = str(round(spend/3600,2)) + ' hours'
+    elif spend > 86400:
+        spend = str(round(spend/86400,2)) + ' days'
+    return spend
+
 if __name__ == '__main__':
     help_text = '''exmple: python3 SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10'''
     parser = argparse.ArgumentParser(description=help_text)
@@ -64,16 +76,17 @@ if __name__ == '__main__':
     thread_num = int(args.thread)
     q = queue.Queue()
     bf = BruteForce(host, user, filename, thread_num,q)
+    start_time = time.time()
     thread_list = bf.run_thread()
     thread_join = 0
     while True:
         if not q.empty():
-            sys.exit(f'SSH PassWord：{q.get()}')
+            sys.exit(f'SSH PassWord：{q.get()}\nTime: {get_time(start_time,time.time())}')
         
         for i in thread_list:
             if not i.is_alive():
                 thread_join += 1
                 if thread_join == thread_num:
-                    sys.exit('[!] Brute force finished\n[!] SSH password not found ')
+                    sys.exit(f'[!] Brute force finished\n[!] SSH password not found\nTime: {get_time(start_time,time.time())}')
         thread_join = 0
         
