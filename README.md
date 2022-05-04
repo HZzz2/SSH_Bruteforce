@@ -33,7 +33,6 @@ optional arguments:
   -f FILE, --file FILE  Password file     密码字典
 
   -t THREAD, --thread THREAD              线程数
-
     Thread number
 ```
 
