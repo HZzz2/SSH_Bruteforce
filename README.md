@@ -1,11 +1,15 @@
 # SSH_Bruteforce
 #### 获取脚本
 
-```git clone https://github.com/HZzz2/SSH_Bruteforce```
+```Bash
+git clone https://github.com/HZzz2/SSH_Bruteforce
+```
 
 #### 进入目录
 
-```cd SSH_Bruteforce```
+```Bash
+cd SSH_Bruteforce
+```
 
 #### 获取帮助
 
