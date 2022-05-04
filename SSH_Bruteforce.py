@@ -1,5 +1,5 @@
 from threading import Thread
-import argparse,os,sys,queue,linecache
+import argparse,sys,queue,linecache
 
 import paramiko
 
