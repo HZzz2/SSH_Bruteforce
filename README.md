@@ -5,10 +5,11 @@
 git clone https://github.com/HZzz2/SSH_Bruteforce
 ```
 
-#### 进入目录
+#### 进入目录和安装第三方库
 
 ```Bash
 cd SSH_Bruteforce
+pip install paramiko
 ```
 
 #### 获取帮助
@@ -51,6 +52,6 @@ python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
 [+] 123456 is correct
 SSH PassWord：123456
 ```
-
+出现paramiko ssh banner错误不影响程序运行
 
 
