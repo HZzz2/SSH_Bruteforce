@@ -30,7 +30,7 @@ metadata = {
         {'type': 'url', 'ref': 'https://blog.rapid7.com/2017/12/28/regifting-python-in-metasploit/'},
         {'type': 'aka', 'ref': 'Coldstone'}
     ],
-    'type': 'ssh_scanner',
+    'type': 'single_scanner',
     'options': {
         'rhost': {'type': 'address', 'description': 'Target address', 'required': True, 'default': None},
         'rport': {'type':'port','description':'Target port','required':True,'default':22},
@@ -125,8 +125,6 @@ def run(args):
                 logging.info('\033[0;36m++++找到密码了 \033[0m')
                 logging.info(f'\033[0;36m++++SSH PassWord：{q.get()}  Time: {get_time(start_time,time.time())} \033[0m')
                 return
-            for i in thread_list:
-                logging.info(i.getName())
             for i in thread_list:
                 if not i.is_alive():
                     thread_join += 1
