@@ -93,6 +93,8 @@ msf6 > use auxiliary/scanner/ssh/MSF_SSH_Bruteforce
 
 #### 设置相关参数
 
+![image](https://user-images.githubusercontent.com/22775890/169562446-ced93cb7-f00a-484b-95d6-00363bce6175.png)
+
 ![](https://secure2.wostatic.cn/static/wA1FZ6QopMaBmytmgyKxAc/image.png)
 
 ```Bash
@@ -106,6 +108,8 @@ msf6 auxiliary(scanner/ssh/MSF_SSH_Bruteforce) > set file /usr/share/commix/src/
 ```Bash
 msf6 auxiliary(scanner/ssh/MSF_SSH_Bruteforce) > exploit 
 ```
+
+![image](https://user-images.githubusercontent.com/22775890/169562481-7db5eeda-7c17-4a6e-a73b-8fd7f7bd869b.png)
 
 ![](https://secure2.wostatic.cn/static/3ucRjDEUCpQyWJ7n6S8RD/image.png)
 
